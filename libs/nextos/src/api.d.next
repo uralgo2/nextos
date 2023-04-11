@@ -1,0 +1,49 @@
+namespace NextOS {
+    class Program {
+        private uint32 _programId;
+        private NextOS::User _user;
+        private NextOS::Threading::ThreadCollection _threads;
+        private NextOS::Environmet _environment;
+
+        public get environmet = _environment;
+
+    }
+}
+
+
+namespace MyProgram {
+    class MyProgram extends NextOS::Program {
+        public override setup(){ // may be called when _environment doesnot full ready to use
+
+        }
+        public override startup(){ // called when we can use _environment
+            const env = this.environmet;
+            const terminal = env.activeTerminal;
+            const user = env.user;
+
+            terminal.writeln("Hello World");
+
+            const userTypedName = terminal.readln<string>("Please enter your name: ");
+
+            if userTypedName != user.name 
+                terminal.error.writeln("You lie! Is not your real name");
+            
+            throw new NextOS::Exception("Lie");
+        }
+
+        public test() {
+            const url = "https://smth.net"
+            const env = this.environmet;
+            const net = env.net;
+
+            const response = net.get(url).except("Something went wrong"); // maybe null
+
+            const htmlBody = response.html.tree; // when is gets builds node tree
+
+
+            net.async.get(url, response => {
+                
+            }))
+        }
+    }
+}
